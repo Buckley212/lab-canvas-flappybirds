@@ -14,7 +14,7 @@ const score = {
   draw: function () {
     c.font = "30px Arial";
     c.fillStyle = "#000000";
-    c.fillText("Score: "+this.points, 500, 150);
+    c.fillText("Score: "+this.points, 500, 200);
   }
 }
 
@@ -22,7 +22,7 @@ const background = {
   x: 0,
   y: 0,
   w: canvas.width,
-  h: canvas.height,
+  h: 900,
 
   draw: function(){
     c.drawImage(background_image, this.x, this.y, this.w, this.h);
@@ -31,7 +31,7 @@ const background = {
 
 const birdy = {
   x: canvas.width /2 - 100,
-  y: canvas.height/2 - 100,
+  y: canvas.height/2 - 300,
   w: 100,
   h: 100,
   draw: function(){
@@ -39,19 +39,27 @@ const birdy = {
   }
 }
 
-class Barrier {
+class BarrierTop {
   constructor(x, y, w, h) {
     this.x = x;
     this.y = y;
     this.w = w;
     this.h = h;
   }
-  drawTop = () => {
-    c.drawImage(obstacleTop, this.x, this.y - 800, this.w, this.h)
+  draw = () => {
+    c.drawImage(obstacleTop, this.x, this.y, this.w, this.h+100)
   }
+}
 
-  drawBottom = () => {
-    c.drawImage(obstacleBottom, this.x, this.y + 600, this.w, this.h)
+class BarrierBottom {
+  constructor(x, y, w, h) {
+    this.x = x;
+    this.y = y;
+    this.w = w;
+    this.h = h;
+  }
+  draw = () => {
+    c.drawImage(obstacleBottom, this.x, this.y - 100, this.w, this.h+300)
   }
 }
 
@@ -59,10 +67,10 @@ let barriersTop = []
 let barriersBottom = []
 
 setInterval(function () {
-  barriersTop.push(new Barrier(canvas.width, Math.floor(Math.random()*300), 200, canvas.height))
-  barriersBottom.push(new Barrier(canvas.width, Math.floor(Math.random()*300), 200, canvas.height))
-  score.points += 10
-}, 1500)
+  barriersTop.push(new BarrierTop(canvas.width, 0, 200,(Math.random()*400)))
+  barriersBottom.push(new BarrierBottom(canvas.width, 900, 200, Math.floor(Math.random()*400)))
+  score.points += 1
+}, 5000)
 
 setInterval(function () {
   if(birdy.y !== 900){
@@ -85,7 +93,7 @@ function detectCollision(rect1, rect2) {
     rect1.y < rect2.y + rect2.h &&
     rect1.y + rect1.h > rect2.y){
       // collision detected!
-      gameOver()
+    gameOver()
   }
 }
 
@@ -106,14 +114,14 @@ function animate() {
   birdy.draw()
   hitBottom();
   barriersTop.forEach(eachBadGuy => {
-    eachBadGuy.drawTop()
+    eachBadGuy.draw()
     detectCollision(birdy, eachBadGuy)
-    eachBadGuy.x -= 2;
+    eachBadGuy.x -= 0.1;
   })
-  barriersBottom.forEach(eachBadGuy1 => {
-    eachBadGuy1.drawBottom()
-    detectCollision(birdy, eachBadGuy1)
-    eachBadGuy1.x -= 2;
+  barriersBottom.forEach(barrier => {
+    barrier.draw()
+    detectCollision(birdy, barrier)
+    barrier.x -= 0.1;
   })
 }
 
@@ -126,13 +134,13 @@ document.getElementById("start-button").onclick = function() {
 window.addEventListener("keydown", moveSomething, false);
 function moveSomething(e) {
   switch(e.keyCode) {
-      case 32:
-        if(birdy.y - birdy.h < 0){
-          birdy.y = 0
-        }
-        else{
-          birdy.y -= 100;
-          break;
-        }
+    case 32:
+      if(birdy.y - birdy.h < 0){
+        birdy.y = 0
+      }
+      else{
+        birdy.y -= 75;
+        break;
+      }
   }
 }
