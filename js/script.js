@@ -14,13 +14,13 @@ const score = {
   draw: function () {
     c.font = "30px Arial";
     c.fillStyle = "#000000";
-    c.fillText("Score: "+this.points, 500, 200);
+    c.fillText("Score: "+this.points, 500, 50);
   }
 }
 
 const background = {
   x: 0,
-  y: 0,
+  y: 100,
   w: canvas.width,
   h: 900,
 
@@ -47,7 +47,7 @@ class BarrierTop {
     this.h = h;
   }
   draw = () => {
-    c.drawImage(obstacleTop, this.x, this.y, this.w, this.h+100)
+    c.drawImage(obstacleTop, this.x, this.y, this.w, this.h)
   }
 }
 
@@ -59,7 +59,7 @@ class BarrierBottom {
     this.h = h;
   }
   draw = () => {
-    c.drawImage(obstacleBottom, this.x, this.y - 100, this.w, this.h+300)
+    c.drawImage(obstacleBottom, this.x, this.y, this.w, this.h)
   }
 }
 
@@ -67,8 +67,8 @@ let barriersTop = []
 let barriersBottom = []
 
 setInterval(function () {
-  barriersTop.push(new BarrierTop(canvas.width, 0, 200,(Math.random()*400)))
-  barriersBottom.push(new BarrierBottom(canvas.width, 900, 200, Math.floor(Math.random()*400)))
+  barriersTop.push(new BarrierTop(canvas.width, 100, 200, 400, (Math.random()*50)))
+  barriersBottom.push(new BarrierBottom(canvas.width, 900 - Math.random()*250, 200, 600))
   score.points += 1
 }, 5000)
 
@@ -116,12 +116,12 @@ function animate() {
   barriersTop.forEach(eachBadGuy => {
     eachBadGuy.draw()
     detectCollision(birdy, eachBadGuy)
-    eachBadGuy.x -= 0.1;
+    eachBadGuy.x -= 0.09;
   })
   barriersBottom.forEach(barrier => {
     barrier.draw()
     detectCollision(birdy, barrier)
-    barrier.x -= 0.1;
+    barrier.x -= 0.09;
   })
 }
 
