@@ -1,5 +1,3 @@
-![logo_ironhack_blue 7](https://user-images.githubusercontent.com/23629340/40541063-a07a0a8a-601a-11e8-91b5-2f13e4e6b441.png)
-
 # LAB | Canvas Flappy Bird
 
 ## Introduction
@@ -11,23 +9,6 @@ The famous FlappyBird is a game developed by Vietnamese video game artist and pr
 The objective is to direct a flying bird, named "Faby", who moves continuously to the right, between sets of pipes. If the player touches the pipes, they lose. Faby briefly flaps each time upward that the player clicks on the spacebar; if the screen is not tapped, Faby falls because of gravity.
 
 If you want to understand better the game, go ahead and play a bit [here](http://flappybird.io/)
-
-## Requirements
-
-- Fork this repo
-- Clone this repo
-
-## Submission
-
-- Upon completion, run the following commands:
-
-  ```
-  git add .
-  git commit -m "done"
-  git push origin master
-  ```
-
-- Create Pull Request so your TAs can check up your work.
 
 ## Instructions
 
@@ -90,5 +71,3 @@ If we want to challenge somebody, we need to know who makes more points. Go ahea
 :bulb: You can use the counter we add to the update function!
 
 <br>
-
-**Happy coding!** :heart:
