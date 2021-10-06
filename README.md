@@ -1,4 +1,4 @@
-# LAB | Canvas Flappy Bird
+Canvas Flappy Bird
 
 ## Introduction
 
